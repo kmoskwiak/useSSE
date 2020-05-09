@@ -1,0 +1,28 @@
+{
+  "name": "react-usesse",
+  "version": "0.0.0",
+  "description": "useSSE - use server-side effect",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "useEffect",
+    "SSR",
+    "server",
+    "side",
+    "hook"
+  ],
+  "peerDependencies": {
+    "react": ">= 16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.34",
+    "jest": "^26.0.1",
+    "react": "^16.13.1",
+    "typescript": "^3.8.3"
+  },
+  "author": "Kasper Moskwiak <kasper.moskwiak@gmail.com> (https://kspr.dev)",
+  "license": "ISC"
+}

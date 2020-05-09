@@ -83,8 +83,6 @@ describe("createServerContext", () => {
 describe("useSSE", () => {
   const createCustomElement = () => {
     const CustomElement: FunctionComponent = () => {
-      const data = useContext(DataContext);
-
       useSSE(
         {},
         "my_custom_key",

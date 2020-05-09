@@ -81,9 +81,9 @@ describe("createServerContext", () => {
 });
 
 describe("useSSE", () => {
-  const createCustomElement = () => {
+  const createCustomElement = (check: Function = Function.prototype) => {
     const CustomElement: FunctionComponent = () => {
-      useSSE(
+      const [data] = useSSE(
         {},
         "my_custom_key",
         () => {
@@ -93,6 +93,8 @@ describe("useSSE", () => {
         },
         []
       );
+
+      check(data);
 
       return <div></div>;
     };
@@ -114,5 +116,29 @@ describe("useSSE", () => {
 
     expect(reply.data).toEqual({ my_custom_key: { data: 123 } });
     done();
+  });
+
+  test("state should be updated by server side effect", async (done) => {
+    const CustomElement = createCustomElement();
+    const { resolveData, ServerDataContext } = createServerContext();
+
+    render(
+      <ServerDataContext>
+        <CustomElement />
+      </ServerDataContext>
+    );
+
+    await resolveData();
+
+    const CustomElementTwo = createCustomElement((data: any) => {
+      expect(data).toEqual({ data: 123 });
+      done();
+    });
+
+    render(
+      <ServerDataContext>
+        <CustomElementTwo />
+      </ServerDataContext>
+    );
   });
 });

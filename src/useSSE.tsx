@@ -19,7 +19,7 @@ export function useSSE<T>(
   key: string,
   effect: () => Promise<T>,
   dependencies?: DependencyList
-) {
+): T[] {
   const ctx: IDataContext = useContext(DataContext);
   const [data, setData] = useState(ctx[key] || initial);
 

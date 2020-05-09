@@ -1,8 +1,8 @@
 {
-  "name": "react-usesse",
+  "name": "use-sse",
   "version": "0.0.0",
   "description": "useSSE - use server-side effect",
-  "main": "index.js",
+  "main": "dist/useSSE.js",
   "scripts": {
     "build": "tsc",
     "test": "jest"

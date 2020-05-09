@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "ES2020",
     "declaration": true,
     "noImplicitAny": true,
     "removeComments": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "dist",
     "target": "ES2017",
     "jsx": "react",
+    "esModuleInterop": true,
     "lib": ["ES2015", "DOM"],
-    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node"
   },
   "include": ["src/**/*"],

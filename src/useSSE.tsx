@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 export const DataContext = React.createContext({});
 
 import { useContext, useState, useEffect, DependencyList, Props } from "react";

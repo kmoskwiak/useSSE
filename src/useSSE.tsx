@@ -1,11 +1,7 @@
-import React, {
-  useContext,
-  useState,
-  useEffect,
-  DependencyList,
-  ProviderProps,
-} from "react";
-const DataContext = React.createContext({});
+import * as React from "react";
+export const DataContext = React.createContext({});
+
+import { useContext, useState, useEffect, DependencyList, Props } from "react";
 
 interface IDataContext {
   requests?: undefined | Promise<any>[];
@@ -61,7 +57,7 @@ export const createBroswerContext = () => {
   const initial =
     window && window._initialDataContext ? window._initialDataContext : {};
 
-  function BroswerDataContext<T>(props: ProviderProps<T>) {
+  function BroswerDataContext<T>(props: Props<T>) {
     return (
       <DataContext.Provider value={initial}>
         {props.children}
@@ -76,7 +72,7 @@ export const createServerContext = () => {
   let ctx: IDataContext = {
     requests: [],
   };
-  function ServerDataContext<T>(props: ProviderProps<T>) {
+  function ServerDataContext<T>(props: Props<T>) {
     return (
       <DataContext.Provider value={ctx}>{props.children}</DataContext.Provider>
     );

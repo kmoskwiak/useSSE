@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "module": "ES2020",
+    "module": "CommonJS",
     "declaration": true,
     "noImplicitAny": true,
-    "removeComments": true,
+    "removeComments": false,
     "sourceMap": false,
     "outDir": "dist",
     "target": "ES2017",

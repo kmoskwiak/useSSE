@@ -14,6 +14,13 @@ declare global {
   }
 }
 
+/**
+ *
+ * @param initial initial value of state
+ * @param key unique key to store data
+ * @param effect runction returning promise
+ * @param dependencies  list of dependencies like in useEffect
+ */
 export function useSSE<T>(
   initial: T,
   key: string,
@@ -48,6 +55,7 @@ export function useSSE<T>(
         setData(res);
       });
     }
+    delete ctx[key];
   }, dependencies);
 
   return [data];

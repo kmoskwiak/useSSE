@@ -1,0 +1,24 @@
+{
+  "name": "usesse-example",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.html.js",
+  "scripts": {
+    "build": "parcel build Client.jsx --no-cache --public-url=/static --out-dir build",
+    "start": "npm run build && babel-node ./Server.jsx",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kasper Moskwiak <kasper.moskwiak@gmail.com> (https://kspr.dev)",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "express": "^4.17.1",
+    "parcel-bundler": "^1.12.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "use-sse": "0.0.1"
+  }
+}

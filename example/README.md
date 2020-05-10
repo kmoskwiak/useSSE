@@ -1,6 +1,8 @@
 # useSSE example
 
-Inside example directory execute:
+This is simple React with SSR example with useSSE.
+
+Inside `example` directory execute:
 
 ```bash
 npm install

@@ -3,6 +3,13 @@
   "version": "0.0.3",
   "description": "useSSE - use server-side effect",
   "main": "dist/useSSE.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kmoskwiak/useSSE"
+  },
+  "bugs": {
+    "url": "https://github.com/kmoskwiak/useSSE/issues"
+  },
   "scripts": {
     "build": "tsc",
     "test": "jest"
@@ -29,5 +36,8 @@
     "typescript": "^3.8.3"
   },
   "author": "Kasper Moskwiak <kasper.moskwiak@gmail.com> (https://kspr.dev)",
+  "funding": {
+    "url": "https://github.com/kmoskwiak/useSSE?sponsor=1"
+  },
   "license": "ISC"
 }

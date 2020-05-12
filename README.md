@@ -2,6 +2,8 @@
 
 > use server-side effect
 
+![useSSE](https://repository-images.githubusercontent.com/262809605/fa573c80-947f-11ea-82f7-3b07879599c4)
+
 ## Usage
 
 Use `useSSE` to fetch data in component:

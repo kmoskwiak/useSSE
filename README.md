@@ -1,8 +1,13 @@
 # useSSE
-
 > use server-side effect
 
+[![npm version](https://badgen.net/npm/v/use-sse)](https://www.npmjs.com/package/use-sse)
+
 ![useSSE](https://repository-images.githubusercontent.com/262809605/fa573c80-947f-11ea-82f7-3b07879599c4)
+
+```
+npm i use-sse
+```
 
 ## Usage
 

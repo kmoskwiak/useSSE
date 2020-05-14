@@ -6,6 +6,7 @@
   "scripts": {
     "build": "parcel build Client.jsx --no-cache --public-url=/static --out-dir build",
     "start": "npm run build && babel-node ./Server.jsx",
+    "postinstall": "cp ../dist/useSSE.js ./node_modules/use-sse/dist/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kasper Moskwiak <kasper.moskwiak@gmail.com> (https://kspr.dev)",
@@ -19,6 +20,6 @@
     "parcel-bundler": "^1.12.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "use-sse": "0.0.3"
+    "use-sse": "0.0.8"
   }
 }

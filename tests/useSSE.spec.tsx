@@ -1,21 +1,28 @@
 import * as React from "react";
 import { useContext, FunctionComponent } from "react";
 import { render } from "@testing-library/react";
-import { useSSE, createServerContext, DataContext } from "../src/useSSE";
+import {
+  useSSE,
+  createServerContext,
+  DataContext,
+  InternalContext,
+} from "../src/useSSE";
 
 describe("createServerContext", () => {
   const createCustomElement = (check: Function) => {
     const CustomElement: FunctionComponent = () => {
       const data = useContext(DataContext);
-      check(data);
+      const internal = useContext(InternalContext);
+      check(data, internal);
       return <div></div>;
     };
     return CustomElement;
   };
 
   test("should create ServerDataContext with initial data", (done) => {
-    const check = (data: any) => {
-      expect(data).toEqual({ requests: [] });
+    const check = (data: any, internal: any) => {
+      expect(data).toEqual({});
+      expect(internal).toEqual({ requests: [], resolved: false, current: 0 });
       done();
     };
 
@@ -30,17 +37,17 @@ describe("createServerContext", () => {
   });
 
   test("element should be able to add request to context", (done) => {
-    const check = (data: any) => {
-      expect(data).toEqual({ requests: [] });
+    const check = (data: any, internal: any) => {
+      expect(data).toEqual({});
 
-      data.requests.push(
+      internal.requests.push(
         () =>
           new Promise((resolve) => {
             resolve();
           })
       );
 
-      expect(data.requests.length).toBe(1);
+      expect(internal.requests.length).toBe(1);
       done();
     };
 
@@ -55,8 +62,8 @@ describe("createServerContext", () => {
   });
 
   test("element should be able to add request to context and modify context", async (done) => {
-    const check = (data: any) => {
-      data.requests.push(
+    const check = (data: any, internal: any) => {
+      internal.requests.push(
         new Promise((resolve) => {
           data["my_key"] = "123";
           resolve();
@@ -85,10 +92,9 @@ describe("useSSE", () => {
     const CustomElement: FunctionComponent = () => {
       const [data] = useSSE(
         {},
-        "my_custom_key",
         () => {
           return new Promise((resolve) => {
-            resolve({ data: 123 });
+            resolve({ data: "my custom data" });
           });
         },
         []
@@ -114,7 +120,7 @@ describe("useSSE", () => {
 
     let reply = await resolveData();
 
-    expect(reply.data).toEqual({ my_custom_key: { data: 123 } });
+    expect(reply.data).toEqual({ "0": { data: "my custom data" } });
     done();
   });
 
@@ -131,7 +137,7 @@ describe("useSSE", () => {
     await resolveData();
 
     const CustomElementTwo = createCustomElement((data: any) => {
-      expect(data).toEqual({ data: 123 });
+      expect(data).toEqual({ data: "my custom data" });
       done();
     });
 

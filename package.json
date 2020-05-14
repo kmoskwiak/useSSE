@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "test:watch": "jest --watch",
     "test": "jest"
   },
   "keywords": [

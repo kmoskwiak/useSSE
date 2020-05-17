@@ -2,6 +2,7 @@
 
 ![useSSE](https://repository-images.githubusercontent.com/262809605/fa573c80-947f-11ea-82f7-3b07879599c4)
 [![npm version](https://badgen.net/npm/v/use-sse)](https://www.npmjs.com/package/use-sse)
+![Node.js CI](https://github.com/kmoskwiak/useSSE/workflows/Node.js%20CI/badge.svg?branch=master)
 
 `useSSE` is abbreviation for use server-side effect. It is a custom React hook to perform asynchronous effects both on client and serve side.
 

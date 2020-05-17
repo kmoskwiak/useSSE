@@ -20,7 +20,7 @@ interface IDataContext {
 
 declare global {
   interface Window {
-    [k: string]: object;
+    [k: string]: any;
     _initialDataContext: object;
   }
 }

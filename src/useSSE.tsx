@@ -20,6 +20,7 @@ interface IDataContext {
 
 declare global {
   interface Window {
+    [k: string]: object;
     _initialDataContext: object;
   }
 }
@@ -73,9 +74,10 @@ export function useSSE<T>(
   return [data];
 }
 
-export const createBroswerContext = () => {
-  const initial =
-    window && window._initialDataContext ? window._initialDataContext : {};
+export const createBroswerContext = (
+  variableName: string = "_initialDataContext"
+) => {
+  const initial = window && window[variableName] ? window[variableName] : {};
   let internalContextValue: IInternalContext = {
     current: 0,
     resolved: true,
@@ -119,8 +121,8 @@ export const createServerContext = () => {
       toJSON: function () {
         return this.data;
       },
-      toHtml: function () {
-        return `<script>window._initialDataContext = ${JSON.stringify(
+      toHtml: function (variableName: string = "_initialDataContext") {
+        return `<script>window.${variableName} = ${JSON.stringify(
           this
         )};</script>`;
       },

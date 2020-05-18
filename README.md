@@ -1,9 +1,10 @@
 # useSSE
-> use server-side effect
-
-[![npm version](https://badgen.net/npm/v/use-sse)](https://www.npmjs.com/package/use-sse)
 
 ![useSSE](https://repository-images.githubusercontent.com/262809605/fa573c80-947f-11ea-82f7-3b07879599c4)
+[![npm version](https://badgen.net/npm/v/use-sse)](https://www.npmjs.com/package/use-sse)
+![Node.js CI](https://github.com/kmoskwiak/useSSE/workflows/Node.js%20CI/badge.svg?branch=master)
+
+`useSSE` is abbreviation for use server-side effect. It is a custom React hook to perform asynchronous effects both on client and serve side.
 
 ```
 npm i use-sse
@@ -22,7 +23,6 @@ const MyComponent = () => {
     {
       title: "my initial data",
     },
-    "myComponentState",
     () => {
       return fetch("https://myapi.example.com").then((res) => res.json());
     },
@@ -90,15 +90,16 @@ const [data] = useSSE(initial, key, effect, dependencies);
 | param          | type                 | required | description                                              | example                                            |
 | -------------- | -------------------- | -------- | -------------------------------------------------------- | -------------------------------------------------- |
 | `initial`      | `any`                | true     | initial state                                            | `{}`                                               |
-| `key`          | `string`             | true     | unique key to keep data in store                         | `'my_unique_key'`                                  |
 | `effect`       | `() => Promise<any>` | true     | effect function returning promise which resolves to data | `() => fetch('example.com').then(res=>res.json())` |
 | `dependencies` | `any[]`              | false    | list of dependencies like in useEffect                   | []                                                 |
 
 #### Returns
 
-`[data]` - where data is resolved data from effect.
+- `[ data ]` - where `data` is resolved response from effects
 
-### `createServerContext`
+---
+
+### createServerContext()
 
 Creates server side context.
 
@@ -124,7 +125,11 @@ const data = await resolveData();
 
 `data` is an object containing value of context.
 
-Calling `data.toHtml()` will return a html script tak with stringified data:
+Calling `data.toHtml(variableName)` will return a html script tak with stringified data:
+
+| param          | type     | required | default value        | description             |
+| -------------- | -------- | -------- | -------------------- | ----------------------- |
+| `variableName` | `string` | false    | \_initialDataContext | name of global variable |
 
 ```js
 data.toHtml();
@@ -133,15 +138,25 @@ data.toHtml();
 
 Both should be used in server side render function.
 
-### `createBroswerContext`
+---
+
+### createBroswerContext()
 
 Creates client side context.
 
 ```js
-const BroswerDataContext = createBroswerContext();
+createBroswerContext(variableName);
 ```
 
-This function creates context provider for client side application.
+#### params
+
+| param          | type     | required | default value        | description             |
+| -------------- | -------- | -------- | -------------------- | ----------------------- |
+| `variableName` | `string` | false    | \_initialDataContext | name of global variable |
+
+#### returns
+
+`BroswerDataContext` - React context provider for client side application
 
 ```html
 <BroswerDataContext>

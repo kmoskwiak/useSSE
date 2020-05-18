@@ -9,7 +9,6 @@ const App = () => {
 
   const [data] = useSSE(
     { message: "Hello!" },
-    "my_data",
     () => {
       return new Promise((resolve) => {
         // Resolve data after 1s

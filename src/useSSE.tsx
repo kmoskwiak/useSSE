@@ -10,7 +10,11 @@ export const InternalContext = React.createContext({
 import { useContext, useState, useEffect, DependencyList, Props } from "react";
 
 interface IInternalContext {
-  requests: Promise<any>[];
+  requests: {
+    promise: Promise<any>;
+    id: number;
+    cancel: Function;
+  }[];
   resolved: boolean;
   current: number;
 }
@@ -32,34 +36,45 @@ declare global {
  * @param dependencies  list of dependencies like in useEffect
  */
 export function useSSE<T>(
-  initial: T,
-  effect: () => Promise<T>,
+  initial: any,
+  effect: () => Promise<any>,
   dependencies?: DependencyList
 ): T[] {
   const internalContext: IInternalContext = useContext(InternalContext);
   let callId = internalContext.current;
   internalContext.current++;
-
   const ctx: IDataContext = useContext(DataContext);
   const [data, setData] = useState(ctx[callId] || initial);
 
   if (!internalContext.resolved) {
-    internalContext.requests.push(
-      new Promise((resolve) => {
-        return effect()
-          .then((res) => {
-            return res;
-          })
-          .then((res) => {
-            ctx[callId] = res;
-            resolve();
-          })
-          .catch((error) => {
-            ctx[callId] = { isError: true, error };
-            resolve();
-          });
-      })
-    );
+    let cancel = Function.prototype;
+
+    const effectPr = new Promise((resolve) => {
+      cancel = () => {
+        if (!ctx[callId]) {
+          ctx[callId] = { isError: true, reason: "timeout", id: callId };
+        }
+        resolve(callId);
+      };
+      return effect()
+        .then((res) => {
+          return res;
+        })
+        .then((res) => {
+          ctx[callId] = res;
+          resolve(callId);
+        })
+        .catch((error) => {
+          ctx[callId] = { isError: true, error };
+          resolve(callId);
+        });
+    });
+
+    internalContext.requests.push({
+      id: callId,
+      promise: effectPr,
+      cancel: cancel,
+    });
   }
 
   useEffect(() => {
@@ -96,6 +111,14 @@ export const createBroswerContext = (
   return BroswerDataContext;
 };
 
+const wait = (time: number) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject({ error: "timeout" });
+    }, time);
+  });
+};
+
 export const createServerContext = () => {
   let ctx: IDataContext = {};
   let internalContextValue: IInternalContext = {
@@ -112,8 +135,22 @@ export const createServerContext = () => {
       </InternalContext.Provider>
     );
   }
-  const resolveData = async () => {
-    await Promise.all(internalContextValue.requests);
+  const resolveData = async (timeout?: number) => {
+    const effects = internalContextValue.requests.map((item) => item.promise);
+
+    if (timeout) {
+      await Promise.race([Promise.all(effects), wait(timeout)]).catch(
+        async () => {
+          // timeout happend
+          for (let item of internalContextValue.requests) {
+            await Promise.race([item.promise, item.cancel()]);
+          }
+        }
+      );
+    } else {
+      await Promise.all(effects);
+    }
+
     internalContextValue.resolved = true;
     internalContextValue.current = 0;
     return {

@@ -159,4 +159,46 @@ describe("useSSE", () => {
       </ServerDataContext>
     );
   });
+
+  test("should handle error of only specific effects ", async (done) => {
+    const CustomElementWithTimeOut = createCustomElement(() => {}, true);
+    const CustomElementNoTimeout = createCustomElement(() => {}, false);
+    const CustomElementNoTimeoutError = createCustomElement(() => {}, true);
+    const CustomElementNoTimeoutLong = createCustomElement(
+      () => {},
+      false,
+      200
+    );
+    const { resolveData, ServerDataContext } = createServerContext();
+    render(
+      <ServerDataContext>
+        <CustomElementWithTimeOut />
+        <CustomElementNoTimeout />
+        <CustomElementNoTimeoutError />
+        <CustomElementNoTimeoutLong />
+      </ServerDataContext>
+    );
+    await resolveData();
+    const CustomElement_1 = createCustomElement((data: any) => {
+      expect(data.isError).toBe(true);
+    });
+    const CustomElement_2 = createCustomElement((data: any) => {
+      expect(data.isError).toBeFalsy();
+    });
+    const CustomElement_3 = createCustomElement((data: any) => {
+      expect(data.isError).toBe(true);
+    });
+    const CustomElement_4 = createCustomElement((data: any) => {
+      expect(data.isError).toBeFalsy();
+      done();
+    });
+    render(
+      <ServerDataContext>
+        <CustomElement_1 />
+        <CustomElement_2 />
+        <CustomElement_3 />
+        <CustomElement_4 />
+      </ServerDataContext>
+    );
+  });
 });

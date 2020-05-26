@@ -139,13 +139,14 @@ export const createServerContext = () => {
     const effects = internalContextValue.requests.map((item) => item.promise);
 
     if (timeout) {
-      await Promise.race([Promise.all(effects), wait(timeout)]).catch(
-        async () => {
-          // timeout happend
-          for (let item of internalContextValue.requests) {
-            await Promise.race([item.promise, item.cancel()]);
-          }
-        }
+      const timeOutPr = wait(timeout);
+
+      await Promise.all(
+        internalContextValue.requests.map((effect, index) => {
+          return Promise.race([effect.promise, timeOutPr]).catch(() => {
+            return effect.cancel();
+          });
+        })
       );
     } else {
       await Promise.all(effects);

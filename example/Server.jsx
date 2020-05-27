@@ -2,6 +2,7 @@ import express from "express";
 import React from "react";
 import { renderToNodeStream, renderToString } from "react-dom/server";
 import App from "./App";
+import AppWithTimeout from "./AppWithTimeout";
 import pageParts from "./index.html";
 import path from "path";
 
@@ -22,22 +23,23 @@ app.use("/", async (req, res) => {
   renderToString(
     <ServerDataContext>
       <App />
+      <AppWithTimeout />
     </ServerDataContext>
   );
 
-  const data = await resolveData();
-  res.write(data.toHtml());
-
-  res.write(pageParts[1]);
+  const data = await resolveData(3000);
 
   const htmlStream = renderToNodeStream(
     <ServerDataContext>
       <App />
+      <AppWithTimeout />
     </ServerDataContext>
   );
 
   htmlStream.pipe(res, { end: false });
   htmlStream.on("end", () => {
+    res.write(pageParts[1]);
+    res.write(data.toHtml());
     res.write(pageParts[2]);
     res.end();
   });

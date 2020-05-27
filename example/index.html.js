@@ -4,15 +4,15 @@ const pageParts = [
   `   <!DOCTYPE html>
     <html>
         <head>
-            <meta charset="utf-8" />`,
-  // 2nd part: here will be placed initial stringified data
-  `       </head>
+            <meta charset="utf-8" />
+        </head>
         <body>
-            <div id="app">`,
-  // 3rd pard: this is where be placed html of react app
+            <div id="app">Loading...`,
+  // 2rd pard: this is where be placed html of react app
   `           </div>
-        </body>
-        <script src="/static/Client.js"></script>
+        </body>`,
+  // 3nd part: here will be placed initial stringified data
+  `     <script src="/static/Client.js"></script>
     </html>
 `,
 ];

@@ -18,7 +18,7 @@ describe("useSSE", () => {
     shouldResolveAfter: number = 0
   ) => {
     const CustomElement: FunctionComponent = () => {
-      const [data] = useSSE(
+      const [data, error] = useSSE(
         {},
         () => {
           return new Promise((resolve, reject) => {
@@ -39,7 +39,7 @@ describe("useSSE", () => {
         },
         []
       );
-      check(data);
+      check(data, error);
       return <div></div>;
     };
     return CustomElement;
@@ -54,7 +54,7 @@ describe("useSSE", () => {
       </ServerDataContext>
     );
     let reply = await resolveData();
-    expect(reply.data).toEqual({ "0": { data: "my custom data" } });
+    expect(reply.data).toEqual({ "0": { data: { data: "my custom data" } } });
     done();
   });
 
@@ -87,8 +87,11 @@ describe("useSSE", () => {
       </ServerDataContext>
     );
     await resolveData();
-    const CustomElementTwo = createCustomElement((data: any) => {
-      expect(data.isError).toBe(true);
+    const CustomElementTwo = createCustomElement((data: any, error: any) => {
+      expect(error).toEqual({
+        code: 401,
+        messgage: "Not authorized",
+      });
       done();
     });
     render(
@@ -107,8 +110,8 @@ describe("useSSE", () => {
       </ServerDataContext>
     );
     await resolveData(500);
-    const CustomElementTwo = createCustomElement((data: any) => {
-      expect(data.isError).toBe(true);
+    const CustomElementTwo = createCustomElement((data: any, error: any) => {
+      expect(error).not.toBeNull();
       done();
     });
     render(
@@ -137,17 +140,17 @@ describe("useSSE", () => {
       </ServerDataContext>
     );
     await resolveData(500);
-    const CustomElement_1 = createCustomElement((data: any) => {
-      expect(data.isError).toBe(true);
+    const CustomElement_1 = createCustomElement((data: any, error: any) => {
+      expect(error).not.toBeNull();
     });
-    const CustomElement_2 = createCustomElement((data: any) => {
-      expect(data.isError).toBeFalsy();
+    const CustomElement_2 = createCustomElement((data: any, error: any) => {
+      expect(error).toBeNull();
     });
-    const CustomElement_3 = createCustomElement((data: any) => {
-      expect(data.isError).toBe(true);
+    const CustomElement_3 = createCustomElement((data: any, error: any) => {
+      expect(error).not.toBeNull();
     });
-    const CustomElement_4 = createCustomElement((data: any) => {
-      expect(data.isError).toBeFalsy();
+    const CustomElement_4 = createCustomElement((data: any, error: any) => {
+      expect(error).toBeNull();
       done();
     });
     render(
@@ -179,17 +182,17 @@ describe("useSSE", () => {
       </ServerDataContext>
     );
     await resolveData();
-    const CustomElement_1 = createCustomElement((data: any) => {
-      expect(data.isError).toBe(true);
+    const CustomElement_1 = createCustomElement((data: any, error: any) => {
+      expect(error).toBeDefined();
     });
-    const CustomElement_2 = createCustomElement((data: any) => {
-      expect(data.isError).toBeFalsy();
+    const CustomElement_2 = createCustomElement((data: any, error: any) => {
+      expect(error).toBeNull();
     });
-    const CustomElement_3 = createCustomElement((data: any) => {
-      expect(data.isError).toBe(true);
+    const CustomElement_3 = createCustomElement((data: any, error: any) => {
+      expect(error).toBeDefined();
     });
-    const CustomElement_4 = createCustomElement((data: any) => {
-      expect(data.isError).toBeFalsy();
+    const CustomElement_4 = createCustomElement((data: any, error: any) => {
+      expect(error).toBeNull();
       done();
     });
     render(

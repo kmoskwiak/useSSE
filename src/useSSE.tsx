@@ -44,7 +44,8 @@ export function useSSE<T>(
   let callId = internalContext.current;
   internalContext.current++;
   const ctx: IDataContext = useContext(DataContext);
-  const [data, setData] = useState(ctx[callId] || initial);
+  const [data, setData] = useState(ctx[callId]?.data || initial);
+  const [error, setError] = useState(ctx[callId]?.error || null);
 
   if (!internalContext.resolved) {
     let cancel = Function.prototype;
@@ -52,7 +53,7 @@ export function useSSE<T>(
     const effectPr = new Promise((resolve) => {
       cancel = () => {
         if (!ctx[callId]) {
-          ctx[callId] = { isError: true, reason: "timeout", id: callId };
+          ctx[callId] = { error: { messgae: "timeout" }, id: callId };
         }
         resolve(callId);
       };
@@ -61,11 +62,11 @@ export function useSSE<T>(
           return res;
         })
         .then((res) => {
-          ctx[callId] = res;
+          ctx[callId] = { data: res };
           resolve(callId);
         })
         .catch((error) => {
-          ctx[callId] = { isError: true, error };
+          ctx[callId] = { error: error };
           resolve(callId);
         });
     });
@@ -79,14 +80,18 @@ export function useSSE<T>(
 
   useEffect(() => {
     if (internalContext.resolved && !ctx[callId]) {
-      effect().then((res) => {
-        setData(res);
-      });
+      effect()
+        .then((res) => {
+          setData(res);
+        })
+        .catch((error) => {
+          setError(error);
+        });
     }
     delete ctx[callId];
   }, dependencies);
 
-  return [data];
+  return [data, error];
 }
 
 export const createBroswerContext = (

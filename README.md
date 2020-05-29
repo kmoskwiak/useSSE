@@ -120,8 +120,12 @@ const { ServerDataContext, resolveData } = createServerContext();
 `resolveData` - function to resolve all effects.
 
 ```js
-const data = await resolveData();
+const data = await resolveData(timeout);
 ```
+
+| param     | type     | required | default value | description                                     |
+| --------- | -------- | -------- | ------------- | ----------------------------------------------- |
+| `timeout` | `number` | false    | `undefined`   | max number of ms to wait for effects to resolve |
 
 `data` is an object containing value of context.
 

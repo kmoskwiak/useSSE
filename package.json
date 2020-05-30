@@ -1,6 +1,6 @@
 {
   "name": "use-sse",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "useSSE - use server-side effect",
   "main": "dist/useSSE.js",
   "repository": {

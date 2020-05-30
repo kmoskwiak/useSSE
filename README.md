@@ -82,7 +82,7 @@ hydrate(
 ### useSSE hook
 
 ```js
-const [data] = useSSE(initial, key, effect, dependencies);
+const [data, error] = useSSE(initial, effect, dependencies);
 ```
 
 #### Params
@@ -95,7 +95,10 @@ const [data] = useSSE(initial, key, effect, dependencies);
 
 #### Returns
 
-- `[ data ]` - where `data` is resolved response from effects
+Returns an array with two elements `[data, error]`.
+
+- `data` - resolved response from effect
+- `error` - an error if effect rejected or if timeout happend.
 
 ---
 

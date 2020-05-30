@@ -1,6 +1,6 @@
 # useSSE
 
-![useSSE](https://repository-images.githubusercontent.com/262809605/fa573c80-947f-11ea-82f7-3b07879599c4)
+![useSSE](https://repository-images.githubusercontent.com/262809605/78398700-a279-11ea-9ba2-4c15b6a1ec9a)
 [![npm version](https://badgen.net/npm/v/use-sse)](https://www.npmjs.com/package/use-sse)
 ![Node.js CI](https://github.com/kmoskwiak/useSSE/workflows/Node.js%20CI/badge.svg?branch=master)
 

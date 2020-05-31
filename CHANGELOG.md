@@ -2,7 +2,29 @@
 
 ## 1.x.x
 
-### 1.0.0
+### 1.2.x
+
+Errors are returned separately from data.
+
+```js
+// before
+const [data] = useSSE();
+// if error happend data.isError was true
+```
+
+```js
+// now
+const [data, error] = useSSE();
+// error has all error details
+```
+
+### 1.1.x
+
+#### timeout
+
+If effect does not resolve before timeout error will be returned. Timeout value can be added to `resolveData` function.
+
+### 1.0.x
 
 This version comes with breaking changes. Versions `0.x.x` are not compatible.
 

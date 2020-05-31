@@ -18,27 +18,23 @@ describe("useSSE", () => {
     shouldResolveAfter: number = 0
   ) => {
     const CustomElement: FunctionComponent = () => {
-      const [data, error] = useSSE(
-        {},
-        () => {
-          return new Promise((resolve, reject) => {
-            if (shouldReject) {
-              return reject({
-                code: 401,
-                messgage: "Not authorized",
-              });
-            }
-            if (shouldResolveAfter) {
-              setTimeout(() => {
-                resolve({ data: "my custom data" });
-              }, shouldResolveAfter);
-            } else {
+      const [data, error] = useSSE(() => {
+        return new Promise((resolve, reject) => {
+          if (shouldReject) {
+            return reject({
+              code: 401,
+              messgage: "Not authorized",
+            });
+          }
+          if (shouldResolveAfter) {
+            setTimeout(() => {
               resolve({ data: "my custom data" });
-            }
-          });
-        },
-        []
-      );
+            }, shouldResolveAfter);
+          } else {
+            resolve({ data: "my custom data" });
+          }
+        });
+      }, []);
       check(data, error);
       return <div></div>;
     };

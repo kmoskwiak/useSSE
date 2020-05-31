@@ -31,12 +31,10 @@ declare global {
 
 /**
  *
- * @param initial initial value of state
  * @param effect runction returning promise
  * @param dependencies  list of dependencies like in useEffect
  */
 export function useSSE<T>(
-  initial: any,
   effect: () => Promise<any>,
   dependencies?: DependencyList
 ): T[] {
@@ -44,7 +42,7 @@ export function useSSE<T>(
   let callId = internalContext.current;
   internalContext.current++;
   const ctx: IDataContext = useContext(DataContext);
-  const [data, setData] = useState(ctx[callId]?.data || initial);
+  const [data, setData] = useState(ctx[callId]?.data || null);
   const [error, setError] = useState(ctx[callId]?.error || null);
 
   if (!internalContext.resolved) {

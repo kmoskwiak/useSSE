@@ -19,7 +19,7 @@ import React from "react";
 import { useSSE } from "use-sse";
 
 const MyComponent = () => {
-  const [data] = useSSE(
+  const [data, error] = useSSE(
     {
       title: "my initial data",
     },

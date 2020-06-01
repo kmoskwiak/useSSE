@@ -19,15 +19,9 @@ import React from "react";
 import { useSSE } from "use-sse";
 
 const MyComponent = () => {
-  const [data, error] = useSSE(
-    {
-      title: "my initial data",
-    },
-    () => {
-      return fetch("https://myapi.example.com").then((res) => res.json());
-    },
-    []
-  );
+  const [data, error] = useSSE(() => {
+    return fetch("https://myapi.example.com").then((res) => res.json());
+  }, []);
 
   return <div>{data.title}</div>;
 };
@@ -82,14 +76,13 @@ hydrate(
 ### useSSE hook
 
 ```js
-const [data, error] = useSSE(initial, effect, dependencies);
+const [data, error] = useSSE(effect, dependencies);
 ```
 
 #### Params
 
 | param          | type                 | required | description                                              | example                                            |
 | -------------- | -------------------- | -------- | -------------------------------------------------------- | -------------------------------------------------- |
-| `initial`      | `any`                | true     | initial state                                            | `{}`                                               |
 | `effect`       | `() => Promise<any>` | true     | effect function returning promise which resolves to data | `() => fetch('example.com').then(res=>res.json())` |
 | `dependencies` | `any[]`              | false    | list of dependencies like in useEffect                   | []                                                 |
 

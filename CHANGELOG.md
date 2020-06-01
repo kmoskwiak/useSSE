@@ -1,5 +1,29 @@
 # Changelog
 
+## 2.x.x
+
+### 2.0.x
+
+Initial state is no longer passed to hook. It will be always set to `null`.
+
+```js
+// before
+const [data, error] = useSSE(
+  { data: 'initial data' }
+  () => {
+    return fetch();
+  },
+  []
+);
+```
+
+```js
+// after
+const [data, error] = useSSE(() => {
+  return fetch();
+}, []);
+```
+
 ## 1.x.x
 
 ### 1.2.x

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-
     <title>useSSE - use Server-Side Effect</title>
-    <meta name="description" content="use Server-Side Effect" />
+    <meta
+      name="description"
+      content="useEffect in server-side render apps. A custom React hook to handle data fetching etc in SSE apps."
+    />
     <meta name="author" content="Kasper Moskwiak" />
     <link
       href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Fira+Sans&display=swap"
@@ -22,42 +23,46 @@
   <body>
     <div>
       <div class="container">
-        <div></div>
         <div class="cell text">
           <h1 class="code">useSSE</h1>
           <h2>use Server-Side effect ✨</h2>
-        </div>
-      </div>
+          <a class="badge" href="https://www.npmjs.com/package/use-sse"
+            ><img alt="npm" src="https://img.shields.io/npm/v/use-sse" />
+          </a>
+          <a class="badge" href="https://github.com/kmoskwiak/useSSE">
+            <img
+              alt="GitHub Workflow Status"
+              src="https://img.shields.io/github/workflow/status/kmoskwiak/useSSE/Node.js CI"
+          /></a>
+          <a class="badge" href="https://github.com/kmoskwiak"
+            ><img
+              alt="GitHub followers"
+              src="https://img.shields.io/github/followers/kmoskwiak?label=%40kmoskwiak&style=social"
+            />
+          </a>
 
-      <div class="conector">
-        <div class="left"></div>
-        <div class="right"></div>
+          <p>
+            A custum React hook which works like
+            <span class="code inline">useEffect</span> but can be used in SSR
+            apps.
+          </p>
+          <p>
+            <a href="https://github.com/kmoskwiak/useSSE"
+              >See project page on Github.</a
+            >
+          </p>
+          <p>
+            <a href="https://www.npmjs.com/package/use-sse"
+              >See package in NPM.</a
+            >
+          </p>
+        </div>
+        <div></div>
       </div>
 
       <div class="container">
-        <div class="cell">
-          <pre>
-<code>
-import { useSSE } from "use-sse";
-
-const MyComponent = () => {
-    const <span data-link-target="use-sse-return">[data, error]</span> = useSSE(
-        <div class="link-target" data-link-target="use-sse-first-argument">
-        () => {
-            return fetch("https://myapi.example.com")
-                    .then((res) => res.json());
-        },
-        </div>
-        <div class="link-target" data-link-target="use-sse-second-argument">
-        []
-        </div>
-    );
-
-    return &lt;div&gt;{data.title}&lt;/div&gt;;
-};
-</code></pre>
-        </div>
         <div class="cell text">
+          <h2>Usage</h2>
           <p>
             On client side <span class="code inline">useSSE</span> hook is very
             similar to <span class="code inline">useEffect</span>.
@@ -75,24 +80,31 @@ const MyComponent = () => {
             <span class="code inline">useEffect</span>.
           </p>
         </div>
+        <div class="cell">
+          <pre>
+  <code>
+  import { useSSE } from "use-sse";
+  
+  const MyComponent = () => {
+      const <span data-link-target="use-sse-return">[data, error]</span> = useSSE(
+          <div class="link-target" data-link-target="use-sse-first-argument">
+          () => {
+              return fetch("https://myapi.example.com")
+                      .then((res) => res.json());
+          },
+          </div>
+          <div class="link-target" data-link-target="use-sse-second-argument">
+          []
+          </div>
+      );
+  
+      return &lt;div&gt;{data.title}&lt;/div&gt;;
+  };
+  </code></pre>
+        </div>
       </div>
 
       <div class="container">
-        <div class="cell">
-          <pre>
-<code>
-const BroswerDataContext = createBroswerContext();
-
-hydrate(
-    <div class="link-target" data-link-target="use-sse-client-wrap">
-    &lt;BroswerDataContext&gt;
-        &lt;App /&gt;
-    &lt;/BroswerDataContext&gt;,
-    </div>
-    document.getElementById(&quot;app&quot;)
-);
-</code></pre>
-        </div>
         <div class="cell text">
           <p data-link="use-sse-client-wrap">
             On client side create
@@ -100,9 +112,44 @@ hydrate(
             application in it.
           </p>
         </div>
+        <div class="cell">
+          <pre>
+  <code>
+  const BroswerDataContext = createBroswerContext();
+  
+  hydrate(
+      <div class="link-target" data-link-target="use-sse-client-wrap">
+      &lt;BroswerDataContext&gt;
+          &lt;App /&gt;
+      &lt;/BroswerDataContext&gt;,
+      </div>
+      document.getElementById(&quot;app&quot;)
+  );
+  </code></pre>
+        </div>
       </div>
 
       <div class="container">
+        <div class="cell text">
+          <p data-link="use-sse-server-create">
+            Create <span class="code inline">ServerDataContext</span> and
+            <span class="code inline">resolveData</span> helper.
+          </p>
+          <p data-link="use-sse-server-first">
+            Wrap your application in
+            <span class="code inline">ServerDataContext</span>. Next, render
+            application for the first time.
+          </p>
+          <p data-link="use-sse-server-resolve">
+            Wait for all effects to resolve.
+          </p>
+          <p data-link="use-sse-server-script">
+            Inject resolved data into HTML.
+          </p>
+          <p data-link="use-sse-server-second">
+            Render your application for the second time.
+          </p>
+        </div>
         <div class="cell">
           <pre>
 <code>
@@ -145,26 +192,6 @@ const htmlStream = renderToNodeStream(
 
 </div>
 </code></pre>
-        </div>
-        <div class="cell text">
-          <p data-link="use-sse-server-create">
-            Create <span class="code inline">ServerDataContext</span> and
-            <span class="code inline">resolveData</span> helper.
-          </p>
-          <p data-link="use-sse-server-first">
-            Wrap your application in
-            <span class="code inline">ServerDataContext</span>. Next, render
-            application for the first time.
-          </p>
-          <p data-link="use-sse-server-resolve">
-            Wait for all effects to resolve.
-          </p>
-          <p data-link="use-sse-server-script">
-            Inject resolved data into HTML.
-          </p>
-          <p data-link="use-sse-server-second">
-            Render your application for the second time.
-          </p>
         </div>
       </div>
 

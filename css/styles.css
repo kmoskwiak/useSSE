@@ -9,9 +9,19 @@ body {
   font-family: "Fira Code", monospace;
 }
 
+a {
+  color: #a3be8c;
+}
+
+a.badge {
+  text-decoration: none;
+}
+
 .code.inline {
   color: #bf616a;
   font-weight: lighter;
+  font-size: 0.9em;
+  vertical-align: bottom;
 }
 
 h1 {
@@ -21,9 +31,7 @@ h1 {
 }
 h2 {
   margin: 0;
-}
-
-p {
+  margin-bottom: 10px;
 }
 
 .code-image {
@@ -35,15 +43,12 @@ p {
   margin: 20px 0;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1200px) {
   .container {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: 1fr 1.2fr;
     margin: 20px 0;
   }
-}
-
-.container .cell {
 }
 
 .container .cell.text {
@@ -84,7 +89,7 @@ pre {
 }
 
 .author a {
-  color: inherit;
+  color: #a3be8c;
 }
 
 .author {

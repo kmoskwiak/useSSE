@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>useSSE - use Server-Side Effect</title>
+    <meta name="description" content="use Server-Side Effect" />
+    <meta name="author" content="Kasper Moskwiak" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Fira+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css?v=1.0" />
+    <link rel="stylesheet" href="highlight/styles/nord.css" />
+    <script src="highlight/highlight.pack.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+  </head>
+
+  <body>
+    <div>
+      <div class="container">
+        <div></div>
+        <div class="cell text">
+          <h1 class="code">useSSE</h1>
+          <h2>use Server-Side effect ✨</h2>
+        </div>
+      </div>
+
+      <div class="conector">
+        <div class="left"></div>
+        <div class="right"></div>
+      </div>
+
+      <div class="container">
+        <div class="cell">
+          <pre>
+<code>
+import { useSSE } from "use-sse";
+
+const MyComponent = () => {
+    const <span data-link-target="use-sse-return">[data, error]</span> = useSSE(
+        <div class="link-target" data-link-target="use-sse-first-argument">
+        () => {
+            return fetch("https://myapi.example.com")
+                    .then((res) => res.json());
+        },
+        </div>
+        <div class="link-target" data-link-target="use-sse-second-argument">
+        []
+        </div>
+    );
+
+    return &lt;div&gt;{data.title}&lt;/div&gt;;
+};
+</code></pre>
+        </div>
+        <div class="cell text">
+          <p>
+            On client side <span class="code inline">useSSE</span> hook is very
+            similar to <span class="code inline">useEffect</span>.
+          </p>
+          <p data-link="use-sse-first-argument">
+            First argument is the effect which must return a promise.
+          </p>
+          <p data-link="use-sse-return">
+            Returned promise resolves to
+            <span class="code inline">data</span> or rejects to
+            <span class="code inline">error</span>.
+          </p>
+          <p data-link="use-sse-second-argument">
+            As a second argument it takes dependency array - just like in
+            <span class="code inline">useEffect</span>.
+          </p>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="cell">
+          <pre>
+<code>
+const BroswerDataContext = createBroswerContext();
+
+hydrate(
+    <div class="link-target" data-link-target="use-sse-client-wrap">
+    &lt;BroswerDataContext&gt;
+        &lt;App /&gt;
+    &lt;/BroswerDataContext&gt;,
+    </div>
+    document.getElementById(&quot;app&quot;)
+);
+</code></pre>
+        </div>
+        <div class="cell text">
+          <p data-link="use-sse-client-wrap">
+            On client side create
+            <span class="code inline">BroswerDataContext</span> and wrap your
+            application in it.
+          </p>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="cell">
+          <pre>
+<code>
+<div class="link-target" data-link-target="use-sse-server-create">
+const { ServerDataContext, resolveData } = createServerContext();
+</div>
+
+
+<div class="link-target" data-link-target="use-sse-server-first">
+
+renderToString(
+    &lt;ServerDataContext&gt;
+        &lt;App /&gt;
+    &lt;/ServerDataContext&gt;
+);
+
+</div>
+
+<div class="link-target" data-link-target="use-sse-server-resolve">
+
+const data = await resolveData();
+
+</div>
+
+
+<div class="link-target" data-link-target="use-sse-server-script">
+
+res.write(data.toHtml());
+
+</div>
+
+
+<div class="link-target" data-link-target="use-sse-server-second">
+
+const htmlStream = renderToNodeStream(
+    &lt;ServerDataContext&gt;
+        &lt;App /&gt;
+    &lt;/ServerDataContext&gt;
+);
+
+</div>
+</code></pre>
+        </div>
+        <div class="cell text">
+          <p data-link="use-sse-server-create">
+            Create <span class="code inline">ServerDataContext</span> and
+            <span class="code inline">resolveData</span> helper.
+          </p>
+          <p data-link="use-sse-server-first">
+            Wrap your application in
+            <span class="code inline">ServerDataContext</span>. Next, render
+            application for the first time.
+          </p>
+          <p data-link="use-sse-server-resolve">
+            Wait for all effects to resolve.
+          </p>
+          <p data-link="use-sse-server-script">
+            Inject resolved data into HTML.
+          </p>
+          <p data-link="use-sse-server-second">
+            Render your application for the second time.
+          </p>
+        </div>
+      </div>
+
+      <div class="author">
+        Made with 🦄 by <a href="https://kspr.dev">Kasper Moskwiak</a>.
+      </div>
+    </div>
+  </body>
+  <script src="app.js"></script>
+</html>

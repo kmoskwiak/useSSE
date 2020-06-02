@@ -1,0 +1,93 @@
+body {
+  padding: 20px;
+  background: #181b22;
+  color: #eceff4;
+  font-family: "Fira Sans", sans-serif;
+}
+
+.code {
+  font-family: "Fira Code", monospace;
+}
+
+.code.inline {
+  color: #bf616a;
+  font-weight: lighter;
+}
+
+h1 {
+  font-size: 4em;
+  margin: 0;
+  text-align: left;
+}
+h2 {
+  margin: 0;
+}
+
+p {
+}
+
+.code-image {
+  width: 100%;
+}
+
+.container {
+  display: grid;
+  margin: 20px 0;
+}
+
+@media (min-width: 1000px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    margin: 20px 0;
+  }
+}
+
+.container .cell {
+}
+
+.container .cell.text {
+  padding: 5px 40px 20px 50px;
+}
+
+.container .cell.text p {
+  font-size: 1.4em;
+  line-height: 1.8em;
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+
+code {
+  padding: 20px 50px !important;
+  font-size: 1.2em;
+  border-radius: 10px;
+  margin: 0;
+}
+
+pre {
+  overflow: auto;
+  width: 100%;
+  box-shadow: 2px 2px 0px 0px #bf616a, 4px 4px 0px 0px #d08770,
+    6px 6px 0px 0px #ebcb8b, 8px 8px 0px 0px #a3be8c, 10px 10px 0px 0px #88c0d0,
+    12px 12px 0px 0px #b48ead;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.link-active:hover {
+  text-decoration: underline;
+}
+
+.link-target {
+  margin-top: -1.8em;
+  margin-bottom: -1.8em;
+}
+
+.author a {
+  color: inherit;
+}
+
+.author {
+  margin-top: 50px;
+  text-align: center;
+}

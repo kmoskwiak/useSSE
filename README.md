@@ -73,7 +73,7 @@ hydrate(
 
 ## API
 
-### useSSE hook
+### useSSE
 
 ```js
 const [data, error] = useSSE(effect, dependencies);

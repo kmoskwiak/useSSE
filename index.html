@@ -18,6 +18,20 @@
     <script>
       hljs.initHighlightingOnLoad();
     </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-52661333-3"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-52661333-3");
+    </script>
   </head>
 
   <body>
@@ -81,24 +95,23 @@
           </p>
         </div>
         <div class="cell">
-          <pre>
-  <code>
-  import { useSSE } from "use-sse";
+          <pre><code>
+import { useSSE } from "use-sse";
   
-  const MyComponent = () => {
-      const <span data-link-target="use-sse-return">[data, error]</span> = useSSE(
-          <div class="link-target" data-link-target="use-sse-first-argument">
-          () => {
-              return fetch("https://myapi.example.com")
-                      .then((res) => res.json());
-          },
-          </div>
-          <div class="link-target" data-link-target="use-sse-second-argument">
-          []
-          </div>
-      );
-  
-      return &lt;div&gt;{data.title}&lt;/div&gt;;
+const MyComponent = () => {
+    const <span data-link-target="use-sse-return">[data, error]</span> = useSSE(
+        <div class="link-target" data-link-target="use-sse-first-argument">
+        () => {
+            return fetch("https://myapi.example.com")
+                    .then((res) => res.json());
+        },
+        </div>
+        <div class="link-target" data-link-target="use-sse-second-argument">
+        []
+        </div>
+    );
+
+    return &lt;div&gt;{data.title}&lt;/div&gt;;
   };
   </code></pre>
         </div>
@@ -113,18 +126,17 @@
           </p>
         </div>
         <div class="cell">
-          <pre>
-  <code>
-  const BroswerDataContext = createBroswerContext();
-  
-  hydrate(
-      <div class="link-target" data-link-target="use-sse-client-wrap">
-      &lt;BroswerDataContext&gt;
-          &lt;App /&gt;
-      &lt;/BroswerDataContext&gt;,
-      </div>
-      document.getElementById(&quot;app&quot;)
-  );
+          <pre><code>
+const BroswerDataContext = createBroswerContext();
+
+hydrate(
+    <div class="link-target" data-link-target="use-sse-client-wrap">
+    &lt;BroswerDataContext&gt;
+        &lt;App /&gt;
+    &lt;/BroswerDataContext&gt;,
+    </div>
+    document.getElementById(&quot;app&quot;)
+);
   </code></pre>
         </div>
       </div>

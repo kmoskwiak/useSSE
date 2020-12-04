@@ -49,7 +49,7 @@ describe("createServerContext", () => {
 
       internal.requests.push(
         () =>
-          new Promise((resolve) => {
+          new Promise<void>((resolve) => {
             resolve();
           })
       );
@@ -69,7 +69,7 @@ describe("createServerContext", () => {
   test("element should be able to add request to context and modify context", async (done) => {
     const check = (data: any, internal: any) => {
       internal.requests.push(
-        new Promise((resolve) => {
+        new Promise<void>((resolve) => {
           data["my_key"] = "123";
           resolve();
         })
@@ -90,7 +90,7 @@ describe("createServerContext", () => {
   test("data.toHtml() should return html with defualt global variable name", async (done) => {
     const check = (data: any, internal: any) => {
       internal.requests.push(
-        new Promise((resolve) => {
+        new Promise<void>((resolve) => {
           data["my_key"] = "123";
           resolve();
         })
@@ -115,7 +115,7 @@ describe("createServerContext", () => {
   test("data.toHtml() should return html with specific global variable name", async (done) => {
     const check = (data: any, internal: any) => {
       internal.requests.push(
-        new Promise((resolve) => {
+        new Promise<void>((resolve) => {
           data["my_key"] = "123";
           resolve();
         })

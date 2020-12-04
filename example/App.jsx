@@ -8,7 +8,6 @@ const App = () => {
   };
 
   const [data] = useSSE(
-    { message: "Hello!" },
     () => {
       return new Promise((resolve) => {
         // Resolve data after 1s
@@ -26,7 +25,7 @@ const App = () => {
 
   return (
     <>
-      <pre>{data.message}</pre>
+      <pre>{data && data.message}</pre>
       <button onClick={refresh}>refresh</button>
     </>
   );

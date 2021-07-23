@@ -23,7 +23,7 @@ describe("useSSE", () => {
           if (shouldReject) {
             return reject({
               code: 401,
-              messgage: "Not authorized",
+              message: "Not authorized",
             });
           }
           if (shouldResolveAfter) {
@@ -86,7 +86,7 @@ describe("useSSE", () => {
     const CustomElementTwo = createCustomElement((data: any, error: any) => {
       expect(error).toEqual({
         code: 401,
-        messgage: "Not authorized",
+        message: "Not authorized",
       });
       done();
     });

@@ -51,7 +51,7 @@ export function useSSE<T>(
     const effectPr = new Promise((resolve) => {
       cancel = () => {
         if (!ctx[callId]) {
-          ctx[callId] = { error: { messgae: "timeout" }, id: callId };
+          ctx[callId] = { error: { message: "timeout" }, id: callId };
         }
         resolve(callId);
       };

@@ -2,14 +2,14 @@ import React from "react";
 import { hydrate } from "react-dom";
 import App from "./App";
 import AppWithTimeout from "./AppWithTimeout";
-import { createBroswerContext } from "use-sse";
+import { createBrowserContext } from "use-sse";
 
-const BroswerDataContext = createBroswerContext();
+const BrowserDataContext = createBrowserContext();
 
 hydrate(
-  <BroswerDataContext>
+  <BrowserDataContext>
     <App />
     <AppWithTimeout />
-  </BroswerDataContext>,
+  </BrowserDataContext>,
   document.getElementById("app")
 );

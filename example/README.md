@@ -11,7 +11,7 @@ npm start
 
 Go to `localhost:3000`.
 
-Expected output in broswer:
+Expected output in browser:
 
 ```
 Hello world from async API!

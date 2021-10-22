@@ -57,16 +57,16 @@ const htmlStream = renderToNodeStream(
 );
 ```
 
-On client side of application use `BroswerDataContext`:
+On client side of application use `BrowserDataContext`:
 
 ```js
 // This will create context will all data fetched during server side rendering
-const BroswerDataContext = createBroswerContext();
+const BrowserDataContext = createBrowserContext();
 
 hydrate(
-  <BroswerDataContext>
+  <BrowserDataContext>
     <App />
-  </BroswerDataContext>,
+  </BrowserDataContext>,
   document.getElementById("app")
 );
 ```
@@ -140,12 +140,12 @@ Both should be used in server side render function.
 
 ---
 
-### createBroswerContext()
+### createBrowserContext()
 
 Creates client side context.
 
 ```js
-createBroswerContext(variableName);
+createBrowserContext(variableName);
 ```
 
 #### params
@@ -156,12 +156,12 @@ createBroswerContext(variableName);
 
 #### returns
 
-`BroswerDataContext` - React context provider for client side application
+`BrowserDataContext` - React context provider for client side application
 
 ```html
-<BroswerDataContext>
+<BrowserDataContext>
   <App />
-</BroswerDataContext>
+</BrowserDataContext>
 ```
 
 ## Examples

@@ -92,7 +92,7 @@ export function useSSE<T>(
   return [data, error];
 }
 
-export const createBroswerContext = (
+export const createBrowserContext = (
   variableName: string = "_initialDataContext"
 ) => {
   const initial = window && window[variableName] ? window[variableName] : {};
@@ -101,7 +101,7 @@ export const createBroswerContext = (
     resolved: true,
     requests: [],
   };
-  function BroswerDataContext<T>(props: Props<T>) {
+  function BrowserDataContext<T>(props: Props<T>) {
     return (
       <InternalContext.Provider value={internalContextValue}>
         <DataContext.Provider value={initial}>
@@ -111,7 +111,7 @@ export const createBroswerContext = (
     );
   }
 
-  return BroswerDataContext;
+  return BrowserDataContext;
 };
 
 const wait = (time: number) => {

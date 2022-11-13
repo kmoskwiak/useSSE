@@ -31,7 +31,7 @@ declare global {
 
 /**
  *
- * @param effect runction returning promise
+ * @param effect run action returning promise
  * @param dependencies  list of dependencies like in useEffect
  */
 export function useSSE<T>(
@@ -51,7 +51,7 @@ export function useSSE<T>(
     const effectPr = new Promise((resolve) => {
       cancel = () => {
         if (!ctx[callId]) {
-          ctx[callId] = { error: { messgae: "timeout" }, id: callId };
+          ctx[callId] = { error: { message: "timeout" }, id: callId };
         }
         resolve(callId);
       };
@@ -92,7 +92,7 @@ export function useSSE<T>(
   return [data, error];
 }
 
-export const createBroswerContext = (
+export const createBrowserContext = (
   variableName: string = "_initialDataContext"
 ) => {
   const initial = window && window[variableName] ? window[variableName] : {};
@@ -101,7 +101,7 @@ export const createBroswerContext = (
     resolved: true,
     requests: [],
   };
-  function BroswerDataContext<T>(props: Props<T>) {
+  function BrowserDataContext<T>(props: Props<T>) {
     return (
       <InternalContext.Provider value={internalContextValue}>
         <DataContext.Provider value={initial}>
@@ -111,8 +111,13 @@ export const createBroswerContext = (
     );
   }
 
-  return BroswerDataContext;
+  return BrowserDataContext;
 };
+
+/**
+ * @deprecated
+ */
+export const createBroswerContext = createBrowserContext;
 
 const wait = (time: number) => {
   return new Promise((resolve, reject) => {
@@ -142,13 +147,13 @@ export const createServerContext = () => {
     const effects = internalContextValue.requests.map((item) => item.promise);
 
     if (timeout) {
-      const timeOutPr = wait(timeout);
-
       await Promise.all(
         internalContextValue.requests.map((effect, index) => {
-          return Promise.race([effect.promise, timeOutPr]).catch(() => {
+          const timeOutPr = wait(timeout).catch(() => {
             return effect.cancel();
           });
+
+          return Promise.race([effect.promise, timeOutPr]);
         })
       );
     } else {

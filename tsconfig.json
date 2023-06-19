@@ -9,9 +9,10 @@
     "target": "ES2017",
     "jsx": "react",
     "esModuleInterop": true,
-    "lib": ["ES2015", "DOM"],
-    "moduleResolution": "node"
+    "lib": ["ES2015", "DOM", "ES2020"],
+    "moduleResolution": "node",
+    "strictNullChecks": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "examples/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

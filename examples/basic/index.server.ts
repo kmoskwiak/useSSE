@@ -1,0 +1,4 @@
+(async () => {
+	import('./server');
+})();
+

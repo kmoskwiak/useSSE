@@ -1,0 +1,17 @@
+FROM node:18-alpine as build-stage
+WORKDIR /app
+COPY ./package.json ./package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run example:build:client
+RUN npm run example:build:server
+
+FROM node:18-alpine
+WORKDIR /app
+COPY --from=build-stage /app/examples/basic/dist-server /app/dist-server
+COPY --from=build-stage /app/examples/basic/dist /app/dist
+
+ENV ENV_NODE_PORT 8080
+EXPOSE 8080
+
+CMD ["node", "./dist-server/js/server.js"]

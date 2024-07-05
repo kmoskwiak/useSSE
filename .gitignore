@@ -1,3 +1,8 @@
 node_modules
 dist
 example/build
+dist-server
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/*.scratchpad.*
